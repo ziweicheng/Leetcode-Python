@@ -15,7 +15,7 @@ class Solution(object):
                  
                     
                     
-##  24ms
+##  16ms
 class Solution(object):
     def twoSum(self, nums, target):
         """
@@ -33,3 +33,16 @@ class Solution(object):
                 x=new_dict[target-dic[j]]
                 return [j,x]
                 
+                
+## 16ms
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+    	D = {n:i for i,n in enumerate(nums)}
+    	for i,n in enumerate(nums):
+    		x = target - n
+    		if x in D and D[x] != i: return [i,D[x]]
