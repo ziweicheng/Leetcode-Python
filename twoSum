@@ -33,7 +33,7 @@ class Solution:
                 return [h[n], i]
                 
                 
-## 28ms
+## 28ms The best solution
 class Solution(object):
     def twoSum(self, nums, target):
         """
