@@ -1,4 +1,4 @@
-## Brute force
+## Brute force  28ms
 
 class Solution(object):
     def twoSum(self, nums, target):
@@ -12,5 +12,24 @@ class Solution(object):
                 if target - nums[i] == nums[j]:
                     return [i,j];
                     
+                 
                     
                     
+##  24ms
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        dic = dict()
+        for i in range(len(nums)):
+            if nums[i] < target: 
+                dic[i] = nums[i]
+        new_dict = {v : k for k, v in dic.items()}
+        for j in range (len(dic)):
+            if target-dic[j] in new_dict:
+                x=new_dict[target-dic[j]]
+                return [j,x]
+                
