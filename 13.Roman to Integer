@@ -1,0 +1,45 @@
+## 56ms
+class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        sum = 0
+        for i,ele in enumerate(s):
+            if ele == "I" and i == len(s)-1:
+                sum += 1
+            if ele == "V":
+                sum += 5
+            if ele == "X" and i == len(s)-1:
+                sum += 10
+            if ele == "L":
+                sum += 50
+            if ele == "C" and i == len(s)-1: 
+                sum += 100
+            if ele == "D":
+                sum += 500
+            if ele == "M":
+                sum += 1000
+            while ele == "I" and i < len(s)-1:
+                if s[i+1] == "V" or s[i+1] == "X":
+                    sum += -1
+                    break
+                else:
+                    sum += 1
+                    break
+            while ele == "X" and i < len(s)-1:
+                if s[i+1] == "L" or s[i+1] == "C":
+                    sum += -10
+                    break
+                else:
+                    sum += 10
+                    break 
+            while ele == "C" and i < len(s)-1:
+                if s[i+1] == "D" or s[i+1] == "M":
+                    sum += -100
+                    break
+                else:
+                    sum += 100
+                    break
+        return sum  
