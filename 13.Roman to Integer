@@ -59,3 +59,26 @@ class Solution(object):
         result -= s.count("XL")*20 + s.count("XC")*20
         result -= s.count("CD")*200 + s.count("CM")*200
         return result   
+ ## 36ms
+ class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        mydic = { 'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000 }
+        
+        
+        val = 0
+        
+       
+        
+        for i in range(len(s)):
+           
+            current = mydic[s[i]]
+
+            if i<len(s)-1 and current<mydic[s[i+1]]:
+                val-=current
+            else:
+                val+=current
+        return val
