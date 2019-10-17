@@ -1,0 +1,29 @@
+## 28ms
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if strs == [] or "" in strs:
+            return ""
+        else:
+            comp1 = strs[0]
+            comp2 = []
+            for ele in strs:
+                if len(comp1) >= len(ele):
+                    for i in range(len(ele)):
+                        if comp1[i] != ele[i]:
+                            comp2 = comp1[:i]
+                            break
+                        else:
+                            comp2 = comp1[:i+1]
+                else:
+                    for i in range(len(comp1)):
+                        if comp1[i] != ele[i]:
+                            comp2 = comp1[:i]
+                            break
+                        else:
+                            comp2 = comp1[:i+1]
+                comp1 = comp2
+            return comp1
