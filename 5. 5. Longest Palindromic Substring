@@ -1,0 +1,20 @@
+# Brute Force
+
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        if len(s) == 1 or s[::-1] == s:
+            return s
+        max_sub_string = 0
+        longest_substring = ""
+        for i in range(len(s)):
+            for j in range(i,len(s)):
+                if s[i:j+1] == s[i:j+1][::-1] and (j-i+1) > max_sub_string:
+                    max_sub_string = j-i+1
+                    longest_substring = s[i:j+1]
+        return longest_substring
+        
+        ## String slice [i:j] ==> From i to j - 1 not to j.
