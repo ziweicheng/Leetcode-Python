@@ -32,8 +32,10 @@ class Solution:
             else:
                 return [h[n], i]
                 
+##  Hash Map  same with Solution below. 
                 
-## 28ms The best solution
+                
+## 28ms
 class Solution(object):
     def twoSum(self, nums, target):
         """
