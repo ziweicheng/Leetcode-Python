@@ -1,0 +1,40 @@
+class Solution(object):
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        if n <= 0:
+            return False
+        record = []
+        while True:
+            bitslen = len(str(n))
+            n = int(n)
+            sum = 0
+            record.append(n)
+            for i in range(bitslen):
+                sum += (n % 10) ** 2
+                n = n // 10
+            if sum == 1:
+                return True
+            if sum in record:
+                return False
+            record.append(sum)
+            n = sum            
+            
+            
+            
+  ## simple coding style
+  
+  class Solution(object):
+    def isHappy(self, n):
+
+        a = []
+        while n != 1:
+            n = sum(int(i)**2 for i in str(n))
+            if n in a:
+                return False
+            else:
+                a.append(n)
+                    
+        return True
