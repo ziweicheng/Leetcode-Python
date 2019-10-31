@@ -1,0 +1,62 @@
+## Hash Map:
+
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        nums.sort()
+        i = 0
+        while i < len(nums):
+            if nums[i] > 0:
+                break
+            target = -nums[i]
+            dic = {}
+            j = i+1
+            while j < len(nums):
+                n = target - nums[j]
+                if n not in dic:
+                    dic[nums[j]] = j
+                else:
+                    res.append([nums[i], nums[j], nums[dic[n]]])
+                    while j < len(nums) - 1 and nums[j] == nums[j + 1]:
+                        j = j+1
+                    while i < len(nums) - 1 and nums[i] == nums[i+1]:
+                        i = i + 1
+                j = j+1
+            i = i + 1
+        return res
+        
+        
+ // Notice special case: repeat elements in the list. 
+ // res.sort not in res: command cannot delete the duplicate triplets for which has same number in different memories. 
+ 
+ 
+ ## Expand around center
+ 
+ class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        ans = set()
+        nums.sort()
+        for c in range(len(nums)-1):
+            l = 0
+            r = len(nums)-1
+            while l <c and c < r:
+                temp = nums[l] + nums[c] + nums[r]
+                if temp == 0:
+                    if (nums[l],nums[c],nums[r]) not in ans:
+                        ans.add((nums[l],nums[c],nums[r]))
+                    l+=1
+                    r-=1
+                elif temp > 0:
+                    r-=1
+                else:
+                    l+=1
+        return list(ans)
+   // Use set to avoid duplicate triplets.
