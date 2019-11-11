@@ -1,0 +1,33 @@
+class Solution(object):
+    def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        if len(intervals) < 2:
+            return intervals
+        intervals = sorted(intervals)
+        result = []
+        i = 0  
+        while i < (len(intervals)-1):
+            j = i+1
+            if result == []:
+                if intervals[i][1] >= intervals[j][0]:
+                    if intervals[i][1] >= intervals[j][1]:
+                        result.append(intervals[i])
+                    else:
+                        result.append([intervals[i][0],intervals[j][1]])
+                else: 
+                    result.append(intervals[i])
+                    result.append(intervals[j])
+            else:
+                if result[-1][1] >= intervals[j][0]:
+                    if result[-1][1] >= intervals[j][1]:
+                        pass
+                    else:
+                        result[-1] = [result[-1][0],intervals[j][1]]
+                else: 
+                    result.append(intervals[j])
+            i += 1
+        return result
+                
