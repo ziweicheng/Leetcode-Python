@@ -1,0 +1,50 @@
+## Brute force TLE for Python
+class Solution(object):
+    def subarraySum(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        ## brute force
+        length = len(nums)
+        result = 0
+        for i in range(length):
+            sum = nums[i]
+            if sum == k:
+                result += 1
+            for j in range (i+1, length):
+                sum += nums[j]
+                if sum == k:
+                       result += 1
+        return result
+        
+        
+        
+        
+  ## Hash Map
+  
+  
+  class Solution(object):
+    def subarraySum(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: int
+        """
+        length = len(nums)
+        result = 0
+        sums = 0
+        dic = {0:1}
+        for i in range(length):
+            sums += nums[i]
+            if (sums-k) in dic:
+                result += dic[sums-k]
+            if sums in dic:
+                dic[sums] += 1
+            else:
+                dic[sums] = 1
+        return result
+        
+        
+        // consider repeat numbers in the list. when repeat number shows up, the key-value of the number in hashmap increase 1.
