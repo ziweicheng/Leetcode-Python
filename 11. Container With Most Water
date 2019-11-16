@@ -1,0 +1,47 @@
+class Solution(object):
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        startmax = height[0]
+        endmax = height[len(height)-1]
+        start = [0]
+        end = [len(height)-1]
+        maxwater = 0
+        for i in range(1,len(height)):
+            if height[i] > startmax:
+                start.append(i)
+                startmax = height[i]
+        for j in range(len(height)-2,-1,-1):
+            if height[j] > endmax:
+                end.append(j)
+                endmax = height[j]
+        for n in range(len(start)):
+            for m in range(len(end)):
+                if ((end[m] - start[n])*min(height[start[n]],height[end[m]])) > maxwater:
+                    maxwater = (end[m] - start[n])*min(height[start[n]],height[end[m]])
+        return maxwater
+        
+        
+        
+        
+        // two pointer
+        class Solution(object):
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        maxwater = 0
+        l = 0
+        r = len(height)-1
+        while l < r:
+            maxwater  = max(maxwater, (min(height[l],height[r])*(r-l)))
+            if height[r] < height[l]:
+                r -= 1
+            else:
+                l += 1
+        return maxwater
+                
+            
