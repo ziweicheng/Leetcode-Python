@@ -1,0 +1,35 @@
+##
+greedy algorithm
+
+class Solution(object):
+    def deleteAndEarn(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        nums = sorted(nums)
+        mapping = {}
+        for i in nums:
+            if i not in mapping:
+                mapping[i] = i
+            else:
+                mapping[i] = mapping[i] + i
+        maxv = mapping[nums[0]]
+        compare = 0
+        ache = 0
+        for j in range(1,len(nums)):
+            if nums[j] == nums[j-1]:
+                continue
+            elif nums[j] - 1 == nums[j-1]:
+                if mapping[nums[j]] + compare > maxv:
+                    ache = mapping[nums[j]] + compare
+                    compare = maxv
+                    maxv = ache
+                else:
+                    compare = maxv
+            else:
+                compare = maxv
+                maxv = maxv + mapping[nums[j]]
+        return maxv
