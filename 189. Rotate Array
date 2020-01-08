@@ -1,0 +1,16 @@
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        if len(nums) < 2: return nums
+        ache = [i for i in nums]
+        for i in range(len(nums)):
+            if i + k < len(nums):
+                nums[i+k] = ache[i]
+            else:
+                a = (i + k) // len(nums)
+                index = i+k - a*len(nums)
+                nums[index] = ache[i]
