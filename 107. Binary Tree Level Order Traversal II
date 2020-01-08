@@ -1,0 +1,33 @@
+####
+
+BFS algorithm
+
+
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def levelOrderBottom(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        if root is None: return
+        result = []
+        queue = [root]
+        while len(queue) > 0:
+            ache = []
+            n = len(queue)
+            for i in range(n):
+                a = queue.pop(0)
+                if a.left != None:
+                    queue.append(a.left)
+                if a.right != None:
+                    queue.append(a.right)
+                ache.append(a.val)
+            result.append(ache)
+        return result[::-1]
