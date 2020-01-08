@@ -1,0 +1,28 @@
+## binary search
+
+class Solution(object):
+    def shipWithinDays(self, weights, D):
+        """
+        :type weights: List[int]
+        :type D: int
+        :rtype: int
+        """
+        def method (target, D):
+            cnt = 0
+            cur = 0
+            for i in weights:
+                cur += i
+                if cur > target:
+                    cnt += 1
+                    cur = 0
+                    cur += i
+            return cnt >= D
+        
+        start, end = max(weights), sum(weights)
+        while start <= end:
+            mid = ( start + end ) // 2
+            if method(mid, D):
+                start = mid + 1
+            else:
+                end = mid -1 
+        return start
