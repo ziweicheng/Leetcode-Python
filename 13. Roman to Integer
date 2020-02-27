@@ -1,0 +1,84 @@
+## 56ms
+class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        sum = 0
+        for i,ele in enumerate(s):
+            if ele == "I" and i == len(s)-1:
+                sum += 1
+            if ele == "V":
+                sum += 5
+            if ele == "X" and i == len(s)-1:
+                sum += 10
+            if ele == "L":
+                sum += 50
+            if ele == "C" and i == len(s)-1: 
+                sum += 100
+            if ele == "D":
+                sum += 500
+            if ele == "M":
+                sum += 1000
+            while ele == "I" and i < len(s)-1:
+                if s[i+1] == "V" or s[i+1] == "X":
+                    sum += -1
+                    break
+                else:
+                    sum += 1
+                    break
+            while ele == "X" and i < len(s)-1:
+                if s[i+1] == "L" or s[i+1] == "C":
+                    sum += -10
+                    break
+                else:
+                    sum += 10
+                    break 
+            while ele == "C" and i < len(s)-1:
+                if s[i+1] == "D" or s[i+1] == "M":
+                    sum += -100
+                    break
+                else:
+                    sum += 100
+                    break
+        return sum  
+        
+        
+  ## 48ms
+  class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        dic = {"I": 1,"V": 5,"X": 10,"L": 50,"C": 100,"D": 500,"M": 1000}
+        result = 0
+        for el in s: result += dic[el]
+        result -= s.count("IV")*2 + s.count("IX")*2
+        result -= s.count("XL")*20 + s.count("XC")*20
+        result -= s.count("CD")*200 + s.count("CM")*200
+        return result   
+ ## 36ms
+ class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        mydic = { 'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000 }
+        
+        
+        val = 0
+        
+       
+        
+        for i in range(len(s)):
+           
+            current = mydic[s[i]]
+
+            if i<len(s)-1 and current<mydic[s[i+1]]:
+                val-=current
+            else:
+                val+=current
+        return val
