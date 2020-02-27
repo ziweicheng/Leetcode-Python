@@ -1,0 +1,10 @@
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        if len(s) < 2: return True
+        s = s.lower()
+        s1 = [i for i in s if i in 'abcdefghijklmnopqrstuvwxyz0123456789']
+        return s1 == s1[::-1]
