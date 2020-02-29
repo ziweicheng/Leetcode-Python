@@ -1,0 +1,29 @@
+
+
+Generator how to work 
+
+
+def triangle(parameter):
+    init = [1]
+    com = [x for x in init]
+    while len(init) < parameter:
+        if len(init) == 1:
+            yield init
+        for i in range(len(init)):
+            if i == 0:
+                init[i] = init[i]
+            else:
+                init[i] = com[i] + com[i-1]
+        init.append(1)
+        com = [x for x in init]
+        yield init
+    return "done"
+
+t = triangle(8)
+while True:
+    try:
+        test = next(t)
+        print(test)
+    except StopIteration as e:
+        print(e)
+        break
