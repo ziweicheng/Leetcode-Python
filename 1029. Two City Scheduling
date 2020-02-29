@@ -1,0 +1,21 @@
+class Solution(object):
+    def twoCitySchedCost(self, costs):
+        """
+        :type costs: List[List[int]]
+        :rtype: int
+        """
+        costs.sort(key = lambda x: x[0] - x[1])
+        
+        N = len(costs)//2
+        
+        total = 0 
+        
+        for i in range(N):
+            total += costs[i][0] + costs[i+N][1]
+        return total
+        
+        
+        
+        Greedy algorithm
+        
+        Use of lambda expression to optimize.
