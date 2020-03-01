@@ -18,3 +18,7 @@ class Solution(object):
                     dp[i] = max(dp[i], average(i, j) + dp[j])
 
         return dp[0]
+        
+        
+        
+        DP problems similar with cutting wood.
