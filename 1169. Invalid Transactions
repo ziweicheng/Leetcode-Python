@@ -1,0 +1,26 @@
+class Solution(object):
+    def invalidTransactions(self, transactions):
+        """
+        :type transactions: List[str]
+        :rtype: List[str]
+        """
+        invaild = []
+        if len(transactions) == 0:
+            return invaild
+
+        for i in range(len(transactions)):
+            partA = transactions[i].split(",")
+            if int(partA[2]) > 1000 and transactions[i] not in invaild:
+                invaild.append(transactions[i])
+
+            for j in range(len(transactions)):
+                partB = transactions[j].split(",")
+                if i != j:
+                    if partA[0] == partB[0] and (abs(int(partA[1]) - int(partB[1])) <= 60) and (partA[3] != partB[3]):
+                        if transactions[j] not in invaild:
+                            invaild.append(transactions[j])
+                        if transactions[i] not in invaild:
+                            invaild.append(transactions[i])
+        return invaild
+        
+        ## Two pointer. Avoid adding repeat elements to result array. 
