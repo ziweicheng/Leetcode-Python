@@ -1,0 +1,27 @@
+class Solution(object):
+    def minCost(self, costs):
+        """
+        :type costs: List[List[int]]
+        :rtype: int
+        """
+        if not costs:
+            return 0
+        cache = []
+        res = []
+        for i in range(len(costs)):
+            cache = [n for n in res]
+            for j in range(3):
+                if i == 0:
+                    cache.append(costs[i][j])
+                    res.append(costs[i][j])
+                else:
+                    if j == 0:
+                        value = costs[i][j] + cache[1]
+                    else:
+                        value = costs[i][j] + cache[0]
+                    for k in range(3):
+                        if k != j:
+                            value = min(costs[i][j] + cache[k], value)
+                    res[j] = value
+        cache = [n for n in res]
+        return min(cache)
