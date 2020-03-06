@@ -1,0 +1,15 @@
+class LogSystem:
+
+    def __init__(self):
+        self.logs=[]
+
+    def put(self, id: int, timestamp: str) -> None:
+        self.logs.append((timestamp,id))
+
+    def retrieve(self, s: str, e: str, gra: str) -> List[int]:
+        index={"Year":5,"Month":8,"Day":11,"Hour":14,"Minute":17,"Second":20}[gra]
+        s,e=s[:index],e[:index]
+        res=[]
+        for tm in sorted(self.logs):
+            if s<=tm[0][:index]<=e: res.append(tm[1])
+        return res
