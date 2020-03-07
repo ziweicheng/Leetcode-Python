@@ -1,0 +1,32 @@
+class Solution(object):
+    def minTaps(self, n, ranges):
+        """
+        :type n: int
+        :type ranges: List[int]
+        :rtype: int
+        """
+        array = [] 
+        comp = 0
+        count = 1
+        for i in range(len(ranges)):
+            array.append([i - ranges[i],i + ranges[i]])
+        array.sort()
+        for j in range(len(array)):
+            if j == 0:
+                left = 0
+                right = array[j][1]
+                comp = array[j][1]
+            else:
+                if array[j][0] > comp:
+                    left = comp
+                    comp = right
+                    count += 1
+                if array[j][0] > right:
+                    return -1
+                if array[j][1] > right:
+                    right = array[j][1]
+                if array[j][0] <= left:
+                    comp = right
+                if comp < n and right > n and j == len(array)-1:
+                    count += 1
+        return count
