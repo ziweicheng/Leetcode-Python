@@ -1,0 +1,35 @@
+class Solution(object):
+    def numDecodings(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        mem_0 = 1
+        mem_1 = 1
+        mark = False
+        for i in s:
+            i = int(i)
+            if mark:
+                if i == 0:
+                    mem_1, mem_0 = mem_0, mem_0
+                    mark = False
+                elif i < 3:
+                    mem_1, mem_0 = mem_0 + mem_1, mem_1
+                elif i < 7:
+                    mem_1, mem_0 = mem_1 + mem_0, mem_1
+                    mark = False
+                else:
+                    mem_0 = mem_1
+                    mem_1 = mem_0
+                    mark = False
+            else:
+                if i == 0:
+                    return 0
+                elif i < 3:
+                    mem_0 = mem_1
+                    mem_1 = mem_0
+                    mark = True
+                else:
+                    mem_0 = mem_1
+                    mem_1 = mem_0
+        return mem_1
