@@ -1,0 +1,66 @@
+Regular DFS, TLE
+
+class Solution(object):
+    def assignBikes(self, workers, bikes):
+        """
+        :type workers: List[List[int]]
+        :type bikes: List[List[int]]
+        :rtype: int
+        """
+        if not workers:
+            return 0
+
+        n, m = len(workers), len(bikes)
+        used = [False] * m
+        def helper(idx):
+            """
+            Process from idx -> n-1 worker (0 indexed)
+            idx: int, index for the current processing worker
+            """
+            if idx == n:
+                return 0
+
+            rst = sys.maxsize  # n <= m, so that rst must have been updated and never left as sys.maxsize
+            for i in range(m):
+                if not used[i]:
+                    dis = abs(workers[idx][0] - bikes[i][0]) + abs(workers[idx][1] - bikes[i][1])
+                    used[i] = True
+                    rst = min(rst, dis + helper(idx + 1))
+                    used[i] = False    
+            return rst
+        return helper(0)
+        
+        
+DFS with memorization
+
+class Solution(object):
+    def assignBikes(self, workers, bikes):
+        """
+        :type workers: List[List[int]]
+        :type bikes: List[List[int]]
+        :rtype: int
+        """
+        if not workers:
+            return 0
+
+        n, m = len(workers), len(bikes)
+        used = 1 << m  # 1 << 0: bikes[0] used, 1 << 1: bikes[1] used, 1 << m-1: bikes[m-1] used
+        mem = dict()
+        def helperMem(idx, used):
+            if idx == n:
+                return 0
+
+            if (idx, used) in mem:
+                return mem[(idx, used)]
+
+            rst = sys.maxsize
+            for i in range(m):
+                if not (1 << i) & used:
+                    dis = abs(workers[idx][0] - bikes[i][0]) + abs(workers[idx][1] - bikes[i][1])
+                    # we can just pass the updated `used` and dont do the manual backtrack
+                    # used |= (1 << i)  # << i is 1 now
+                    rst = min(rst, dis + helperMem(idx + 1, used | (1 << i)))
+                    # used &= (1 << i)  # << i is 0 now
+            mem[(idx, used)] = rst
+            return rst
+        return helperMem(0, used)
