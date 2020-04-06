@@ -1,0 +1,19 @@
+class Solution(object):
+    def longestOnes(self, A, K):
+        """
+        :type A: List[int]
+        :type K: int
+        :rtype: int
+        """
+        res = 0
+        n = len(A)
+        left = 0
+        for right in range(n):
+            K -= 1 - A[right]
+            if K < 0:
+                K += 1 - A[left]
+                left += 1
+        res = right - left + 1
+        return res
+                
+                
