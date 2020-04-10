@@ -1,0 +1,68 @@
+class Solution:
+    def pacificAtlantic(self, matrix: List[List[int]]) -> List[List[int]]:
+        if not matrix: return []
+        def helper(start, end, i, j, visited):
+            if i == 0 or j == 0:
+                self.p.add((start, end))
+                
+            if i == m-1 or j == n-1:
+                self.a.add((start, end))
+               
+            for dx, dy in (-1, 0), (1, 0), (0, -1), (0, 1):
+                newi, newj = i + dx, j + dy
+                if (newi, newj) not in visited and 0 <= newi < m and 0 <= newj < n and matrix[newi][newj] <= matrix[i][j]:
+                    visited.add((newi, newj))
+                    helper(start, end, newi, newj, visited)
+                    
+        m, n = len(matrix), len(matrix[0])
+        self.p = set()
+        self.a = set()
+        for i in range(m):
+            for j in range(n):
+                helper(i, j, i, j, set())
+        return list(self.p & self.a)
+        
+        
+        
+        // time limit excess
+        
+        class Solution(object):
+    def pacificAtlantic(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        if not matrix:
+            return []
+        move_x = [-1, 0, 1, 0]
+        move_y = [0, -1, 0, 1]
+        m = len(matrix)
+        n = len(matrix[0])
+        result = []
+
+        def DFS(matrix, used, x, y, reach = [False, False, False]):
+            used[x][y] = 1
+            if x == 0 or y == 0:
+                reach[0]= True
+            if x == (m - 1) or y == (n - 1):
+                reach[1] = True
+            if reach[0] == True and reach[1] == True:
+                reach[2] = True
+                return reach
+            for i in range(4):
+                new_x = x + move_x[i]
+                new_y = y + move_y[i]
+                if (0 <= new_x < m and 0 <= new_y < n and used[new_x][new_y] != 1 and matrix[x][y] >= matrix[new_x][new_y]):
+                    res = DFS(matrix, used, new_x, new_y, reach)
+                    if res[2]:
+                        return res
+                    used[new_x][new_y] = 0
+            return reach
+
+        for i in range(m):
+            for j in range(n):
+                used = [[ 0 for k in range(n)] for h in range(m)]
+                temp = DFS(matrix, used, i, j, reach=[False, False, False])
+                if temp[2]:
+                    result.append([i, j])
+        return result
