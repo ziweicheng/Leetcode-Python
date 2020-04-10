@@ -1,0 +1,22 @@
+class Solution:
+    def mostCommonWord(self, paragraph: str, banned: List[str]) -> str:
+        paragraph = paragraph.lower()
+        for c in string.punctuation:
+            paragraph = paragraph.replace(c," ")
+        all_words = paragraph.split(" ")
+        res = []
+        max_count = 0
+        for i in range(len(all_words)):
+            if all_words[i] in banned or all_words[i] =="":
+                continue
+            else:
+                count_number = all_words.count(all_words[i])
+                if count_number > max_count and len(res) > 0:
+                    max_count = count_number
+                    res.pop()
+                    res.append(all_words[i])
+                if count_number > max_count:
+                    max_count = count_number
+                    res.append(all_words[i])
+        return res[0]
+            
